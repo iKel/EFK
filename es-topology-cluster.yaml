@@ -1,0 +1,34 @@
+apiVersion: kubedb.com/v1alpha2
+kind: Elasticsearch
+metadata:
+  name: elasticsearch
+  namespace: logging
+spec:
+  version: xpack-7.17.3
+  storageType: Durable
+  topology:
+    master:
+      replicas: 2
+      storage:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+    data:
+      replicas: 3
+      storage:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+    ingest:
+      replicas: 1
+      storage:
+        accessModes:
+        - ReadWriteOnce
+        storageClassName: ebs-sc1
+        resources:
+          requests:
+            storage: 1Gi

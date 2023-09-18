@@ -1,0 +1,65 @@
+apiVersion: dashboard.kubedb.com/v1alpha1
+kind: ElasticsearchDashboard
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"dashboard.kubedb.com/v1alpha1","kind":"ElasticsearchDashboard","metadata":{"annotations":{},"name":"kibana","namespace":"logging"},"spec":{"databaseRef":{"name":"elasticsearch"},"terminationPolicy":"DoNotTerminate"}}      
+  creationTimestamp: "2023-04-07T09:00:36Z"
+  finalizers:
+  - kubedb.com
+  generation: 1
+  name: kibana
+  namespace: logging
+  resourceVersion: "364295"
+  uid: 58d8d6a0-ae87-4f22-a2c7-aaa6c4d59af9
+spec:
+  databaseRef:
+    name: elasticsearch
+  podTemplate:
+    controller: {}
+    metadata: {}
+    spec:
+      resources:
+        limits:
+          memory: 1Gi
+        requests:
+          cpu: 100m
+          memory: 1Gi
+  replicas: 1
+  terminationPolicy: DoNotTerminate
+status:
+  conditions:
+  - lastTransitionTime: "2023-04-07T09:00:40Z"
+    message: |
+      Deployment: logging/kibana is Available      
+    observedGeneration: 1
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: DeploymentReconciled
+  - lastTransitionTime: "2023-04-07T09:00:37Z"
+    message: |
+      Service: logging/kibana is Available      
+    observedGeneration: 1
+    reason: ServiceAcceptingRequests
+    status: "True"
+    type: ServiceReconciled
+  - lastTransitionTime: "2023-04-07T09:01:20Z"
+    message: 'The ElasticsearchDashboard server: logging/kibana is ready.'
+    observedGeneration: 1
+    reason: ServerHealthGood
+    status: "True"
+    type: ServerHealthy
+  - lastTransitionTime: "2023-04-07T09:00:40Z"
+    message: 'dashboard: logging/kibana have successfully provisoined'
+    observedGeneration: 1
+    reason: DashboardReadinessCheckSucceeded
+    status: "True"
+    type: DashboardProvisioned
+  - lastTransitionTime: "2023-04-07T09:01:10Z"
+    message: 'The ElasticsearchDashboard: logging/kibana is accepting connection request
+      now.'
+    observedGeneration: 1
+    reason: DashboardAcceptingConnectionRequests
+    status: "True"
+    type: ServerAcceptingConnection
+  phase: Ready

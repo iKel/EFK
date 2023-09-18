@@ -1,0 +1,65 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ebs-sc1
+  namespace: logging
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+volumeBindingMode: Immediate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: myvolume-pv5
+  namespace: logging
+  labels:
+    app: elasticsearch
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ebs-sc1
+  hostPath:
+    path: /usr/share/elasticsearch/data
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv6
+  namespace: logging
+  labels:
+    app: elasticsearch
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ebs-sc1
+  hostPath:
+    path: /usr/share/elasticsearch/data
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv8
+  namespace: logging
+  labels:
+    app: elasticsearch
+spec:
+  capacity:
+    storage: 3Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ebs-sc1
+  hostPath:
+    path: /usr/share/elasticsearch/data
